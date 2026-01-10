@@ -3,7 +3,7 @@
 Course materials for PFC710 - Winter 2026
 
 ## Week 1
-- [Chapter One: Introduction](week01/week01.md)
+- [Chapter One: Introduction](chapter01/chapter01.md)
   - Introduction to Hardware, Software, and Algorithm Development
   - Your First Python Program
   - Error Handling and Debugging

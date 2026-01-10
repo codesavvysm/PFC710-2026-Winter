@@ -1,6 +1,6 @@
 # Week 1 Exercises
 
-[← Back to Chapter One](week01.md)
+[← Back to Chapter One](chapter01.md)
 
 ---
 
