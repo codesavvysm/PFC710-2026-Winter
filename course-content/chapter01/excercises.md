@@ -1,4 +1,4 @@
-# Week 1 Exercises
+# Chapter 1 Exercises
 
 [← Back to Chapter One](chapter01.md)
 

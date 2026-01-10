@@ -948,7 +948,7 @@ Type each example above in the PyCharm Python Shell window and observe what happ
 
 Practice what you've learned by completing the exercises:
 
-**[→ Week 1 Exercises](excercises.md)**
+**[→ Chapter 1 Exercises](excercises.md)**
 
 ---
 

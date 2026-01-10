@@ -2,7 +2,7 @@
 
 Course materials for PFC710 - Winter 2026
 
-## Week 1
+## Chapter 1
 - [Chapter One: Introduction](chapter01/chapter01.md)
   - Introduction to Hardware, Software, and Algorithm Development
   - Your First Python Program
@@ -13,7 +13,7 @@ Course materials for PFC710 - Winter 2026
 
 ## Course Structure
 
-This repository contains course materials organized by week. Each week's content includes:
+This repository contains course materials organized by chapter. Each chapter's content includes:
 - Lecture notes and slides
 - Code examples
 - Exercises and assignments
@@ -21,7 +21,7 @@ This repository contains course materials organized by week. Each week's content
 
 ## Getting Started
 
-1. Navigate to the week you're currently studying
+1. Navigate to the chapter you're currently studying
 2. Read through the course materials
 3. Follow along with code examples
 4. Complete the exercises
