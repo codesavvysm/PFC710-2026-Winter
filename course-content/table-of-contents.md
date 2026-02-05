@@ -41,6 +41,16 @@ Course materials for PFC710 - Winter 2026
   - Nested Loops
   - Processing Strings
 
+## Chapter 5
+- [Chapter Five: Functions](chapter05/chapter05.md)
+  - Functions as Black Boxes
+  - Implementing and Testing Functions
+  - Parameter Passing
+  - Return Values
+  - Functions Without Return Values
+  - Variable Scope
+  - Exception Handling
+
 ---
 
 ## Course Structure
@@ -60,5 +70,4 @@ This repository contains course materials organized by chapter. Each chapter's c
 
 ---
 
-*Last updated: 2026*
 
