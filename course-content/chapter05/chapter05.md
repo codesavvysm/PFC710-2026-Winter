@@ -29,17 +29,13 @@ A **function** is a sequence of instructions with a name. For example, the `roun
 
 ## Calling Functions
 
-You  call  a function in order to execute its instructions
+You **call** a function in order to execute its instructions. For example, by using the expression `round(6.8275, 2)`, your program calls the `round` function and asks it to round 6.8275 to two decimal digits:
 
-price = round(6.8275, 2) # Sets result to 6.83
+```python
+price = round(6.8275, 2)  # Sets result to 6.83
+```
 
-By using the expression round(6.8275, 2), your program  calls  the round function, asking it to round 6.8275 to two decimal digits
-
-
-
-## Calling Functions (2)
-
-The round function  returns  its result back to where the function was called and your program resumes execution
+When the function finishes, it **returns** its result back to the place where it was called, and your program resumes execution.
 
 ![](media/image2.png "Picture 5")
 
@@ -47,132 +43,61 @@ The round function  returns  its result back to where the function was called an
 
 ## Function Arguments
 
-When another function calls the round function, it provides *inputs*, such as the values  6.8275  and  2  in the call  round(6.8275, 2)  
-
-These values are called the arguments of the function call
-
-Note that they are not necessarily inputs provided by a human user 
-
-They are the values for which we want the function to compute a result
-
-
-
-## Function Arguments
-
-Functions can receive multiple arguments or it is also possible to have functions with no arguments
+When you call a function, you pass it *inputs*—the values it needs to do its job. In the call `round(6.8275, 2)`, the values `6.8275` and `2` are the **arguments** of the function call. Note that arguments are not necessarily input from a human user; they are simply the values for which we want the function to compute a result. Functions can receive multiple arguments, or they may have no arguments at all.
 
 
 
 ## Function Return Values
 
-The *output* that the round function computes is called the  return value
+The *output* that a function computes is called its **return value**. A function returns at most one value, and that value is sent back to the point in your program where the function was called. For example:
 
-Functions return only one value
-
-The return value of a function is returned to the point in your program where the function was called
-
+```python
 price = round(6.8275, 2)
+```
 
-When the round function returns its result, the return value is stored in the variable `price`)
-
-
-
-## Function Return Values (2)
-
-Do not confuse returning a value with producing program output which is produced when using a  print()  statement
+When `round` returns, its result is stored in the variable `price`. Do not confuse *returning* a value with *printing* output: `return` sends a value back to the caller; `print()` displays text to the user.
 
 
 
 ## Black Box Analogy
 
-A thermostat is a ' black box'
+Think of a thermostat: you set a desired temperature and it turns the heater or A/C on as needed. You don't have to know how it measures the current temp or what signals it sends—you just give it what it needs and get the result. **Use functions the same way:** treat them as black boxes. Pass in what the function needs (its arguments), and receive the answer (its return value).
 
-Set a desired temperature
+## The round Function as a Black Box
 
-Turns on heater/AC as required
-
-You don't have to know how it really works!
-
-How does it know the current temp?
-
-What signals/commands does it send to the heater or A/C?
-
-Use functions like ' black boxes'
-
-Pass the function what it needs to do its job
-
-Receive the answer
-
-
-
-## The  round  Function as a Black Box
-
-You pass the round function its necessary arguments (6.8275 & 2) and it produces its result (6.83)
-
-
+When you call `round(6.8275, 2)`, you pass the necessary arguments and get back the result (6.83). As a user of the function, you don't need to know how it is implemented; you only need to know its **specification**: if you provide arguments `x` and `n`, the function returns `x` rounded to `n` decimal digits.
 
 <img src="media/image3.png" alt="Picture 5" width="400">
-
-## The  round  Function as a Black Box
-
-You may wonder how the round function performs its job 
-
-As a user of the function, you don't need to know how the function is implemented
-
-You just need to know the specification of the function: 
-
-If you provide arguments x and n, the function returns x rounded to n decimal digits
 
 
 
 ## Designing Your Own Functions
 
-When you design your own functions, you will want to make them appear as black boxes to other programmers
-
-Even if you are the only person working on a program, making each function into a black box pays off: there are fewer details that you need to keep in mind
+When you design your own functions, make them behave like black boxes: clear inputs, clear output, and no need for the caller to know the internals. Even if you are the only person on the project, this habit keeps the program easier to understand and maintain.
 
 
 
 ## 5.2 Implementing and Testing Functions
 
-A function to calculate the volume of a cube
+Suppose we want a function that computes the volume of a cube. To define it we need to decide: what does it need (one number, the side length) and what does it return (the volume). When writing the function:
 
-What does it need to do its job?
+1. **Pick a name** for the function (e.g. `cubeVolume`).
+2. **Declare a variable** for each value the function receives (e.g. `sideLength`). These are called **parameter variables**.
+3. **Put this together** with the `def` keyword to form the first line—the **header** of the function:
 
-What does it answer with?
+   ```python
+   def cubeVolume(sideLength):
+   ```
 
-When writing ('defining') this function
+### Testing a Function
 
-Pick a name for the function ( cubeVolume )
-
-Declare a variable for each incoming argument
-
-  ( sideLength ) (called parameter variables)
-
-Put all this information together along with the  def  keyword to form the first line of the function's definition:
-
-
-
-def cubeVolume(sideLength):
-
-This line is called the  header  of the function
-
-## Testing a Function
-
-If you run a program containing just the function definition, then nothing happens
-
-After all, nobody is calling the function
-
-In order to test the function, your program should contain
-
-The definition of the function
-
-Statements that call the function and print the result
+If you run a program that only defines a function and does not call it, nothing visible happens—the function is never executed. To test a function, your program should contain both the function definition and statements that call the function and print (or use) the result.
 
 
 
 ## Calling/Testing the Cube Function
 
+```python
 def cubeVolume(sideLength):
     volume = sideLength ** 3
     return volume
@@ -181,10 +106,10 @@ result1 = cubeVolume(2)
 result2 = cubeVolume(10)
 print("A cube with side length 2 has volume", result1)
 print("A cube with side length 10 has volume", result2)
+```
 
-Implementing the function (function definition)
-
-Calling/testing the function
+- The first block is the **function definition** (implementing the function).
+- The last three lines **call** the function and print the results (testing).
 
 
 
@@ -196,11 +121,9 @@ Calling/testing the function
 
 ## Programming Tip: Function Comments
 
-Whenever you write a function, you should  comment  its behavior 
+Whenever you write a function, add a short comment (or docstring) that describes what it does, what its parameters mean, and what it returns. Comments are for human readers, not the compiler—they make the code easier to understand and maintain.
 
-Remember, comments are for human readers, not compilers
-
-## Computes the volume of a cube.
+**Example:** A documented function. The comments (or docstring) explain the purpose, the parameters, and the return value:
 
 ```python
 ## Computes the volume of a cube.
@@ -211,8 +134,6 @@ def cubeVolume(sideLength):
     volume = sideLength ** 3
     return volume
 ```
-
-Function comments explain the purpose of the function, the meaning of the parameter variables and the return value, as well as any special requirements
 
 
 
@@ -245,27 +166,21 @@ main()
 
 
 
-## The  main  Function
+## The main Function
 
-When defining and using functions in Python, it is good programming practice to place all statements into functions, and to specify one function as the starting point
-
-Any legal name can be used for the starting point, but we chose 'main' since it is the required function name used by other common languages
-
-Of course, we must have one statement in the program that calls the main function
+When you structure a program with functions, it is good practice to put the main logic inside a function and treat that as the **starting point**. Any legal name is allowed for that function; we use `main` because it is the conventional name in many languages. You must have at least one statement in the program that **calls** this function (e.g. `main()`) so that execution actually starts there.
 
 
 
-## Syntax: The  main  Function 
+## Syntax: The main Function
 
 ![](media/image7.png "Content Placeholder 5")
 
 
 
-## Using Functions: Order (1)
+## Using Functions: Order
 
-It is important that you define any function before you call it 
-
-For example, the following will produce a compile-time error:
+In Python, a function must be **defined before it is called** at the top level. For example, the following will produce an error:
 
 ```python
 print(cubeVolume(10))
@@ -275,15 +190,9 @@ def cubeVolume(sideLength):
     return volume
 ```
 
-The compiler does not know that the  cubeVolume  function will be defined later in the program
+Python does not know that `cubeVolume` will be defined later, so the call fails.
 
-
-
-## Using Functions: Order (2)
-
-However, a function can be called from within another function before the former has been defined 
-
-The following is perfectly legal:
+If the call is *inside* another function (e.g. inside `main`), the callee can be defined later in the file. When `main()` runs, Python has already seen the definition of `cubeVolume`. So the following is valid:
 
 ```python
 def main():
@@ -352,15 +261,7 @@ def totalCents(dollars, cents):
 
 ## 5.4 Return Values
 
-Functions can (optionally) return one value
-
-Add a  return statement  that returns a value
-
-A  return statement  does two things:
-
-- Immediately terminates the function
-- Passes the return value back to the calling function
-
+Functions can optionally **return** one value to the caller. You use a `return` statement to send that value back. A `return` statement does two things: it immediately **terminates** the function, and it **passes** the return value back to the place where the function was called. The return value can be a literal, a variable, or any expression (e.g. a calculation).
 
 ```python
 def cubeVolume(sideLength):
@@ -368,15 +269,11 @@ def cubeVolume(sideLength):
     return volume
 ```
 
-The return value may be a value, a variable or a calculation
-
-## Multiple  return  Statements
+## Multiple return Statements
 
 ![](media/image13.png "Picture 8")
 
-A function can use multiple  return  statements
-
-But every branch must have a  return  statement
+A function can have more than one `return` statement (for example, one per branch of an `if`). The important rule: **every path** through the function that should produce a result must hit a `return` statement.
 
 
 ```python
@@ -386,13 +283,7 @@ def cubeVolume(sideLength):
     return sideLength ** 3
 ```
 
-## Multiple  return  Statements (2)
-
-Alternative to multiple returns (e.g., one for each branch):
-
-You can avoid multiple returns by storing the function result in a variable that you return in the last statement of the function 
-
-For example:
+**Alternative:** Instead of multiple `return` statements, you can compute the result into a variable and have a single `return` at the end of the function. For example:
 
 ```python
 def cubeVolume(sideLength):
@@ -405,17 +296,7 @@ def cubeVolume(sideLength):
 
 ## Make Sure A Return Catches All Cases
 
-Missing  return  statement
-
-Make sure all conditions are handled
-
-In this case,  sideLength  could be equal to 0
-
-No  return  statement for this condition
-
-The compiler will  not  complain if any branch has no  return  statement
-
-It may result in a run-time error because Python returns the special value  None  when you forget to return a value
+If some path through the function does not execute a `return` statement, the function still returns—Python returns the special value `None`. That can cause confusing bugs (e.g. when the caller expects a number). So make sure **every logical branch** that should produce a value has a `return`. For example, if `sideLength` could be negative, zero, or positive, each case should be handled and return an appropriate value. The compiler does not warn you when a branch is missing a `return`.
 
 ```python
 def cubeVolume(sideLength):
@@ -436,9 +317,7 @@ def cubeVolume(sideLength):
 
 ## Pyramids.py
 
-Open the file pyramids.py
-
-Look at how the main function is set up to make the calls to  pyramidVolume  and print the expected results
+In the file `pyramids.py`, the `main` function calls `pyramidVolume` with different arguments and prints the results so you can check them against the expected values.
 
 ```python
 ##
@@ -468,11 +347,7 @@ main()
 
 ## 5.5 Functions Without Return Values
 
-Functions are not required to return a value
-
-No  return  statement is required
-
-The function can generate output even when it doesn't have a return value
+A function does not have to return a value. If it only needs to do something (e.g. print output or change state), you can omit the `return` statement or use `return` with no value. The function can still produce output with `print()` or other side effects.
 
 ```python
 def boxString(contents):
@@ -487,11 +362,9 @@ def boxString(contents):
 boxString("Hello")
 ```
 
-## Using  return  Without a Value
+## Using return Without a Value
 
-You can use the return statement without a value
-
-The function will terminate immediately!
+You can use `return` with no value (just `return`). That **ends the function immediately** and returns `None` to the caller. This is useful to exit early when a condition is met (e.g. invalid input) without returning a result.
 
 ```python
 def boxString(contents):
@@ -563,7 +436,7 @@ Put the risky code in a `try` block. If an exception happens there, execution ju
 import requests
 
 try:
-    response = requests.get("https://newsapi.org/v2/everything", params={"q": "tech", "pageSize": 10}, timeout=5)
+    response = requests.get("https://gradesapi.org/v2/everything", params={"class": "python", "pageSize": 10}, timeout=5)
     response.raise_for_status()   # raise an error if HTTP status is 4xx or 5xx
     data = response.json()
     # ... use data ...
