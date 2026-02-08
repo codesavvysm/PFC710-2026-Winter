@@ -51,6 +51,14 @@ Course materials for PFC710 - Winter 2026
   - Variable Scope
   - Exception Handling
 
+## Chapter 6
+- [Chapter Six: Lists](chapter06/chapter06.md)
+  - Basic Properties of Lists
+  - List Operations
+  - Common List Algorithms
+  - Using Lists with Functions
+  - Tables
+
 ---
 
 ## Course Structure
