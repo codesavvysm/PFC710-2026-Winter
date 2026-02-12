@@ -28,7 +28,6 @@ In this chapter you will learn:
 - List Operations
 - Common List Algorithms
 - Using Lists with Functions
-- Tables
 
 ---
 
@@ -502,8 +501,6 @@ def total(values):
     return total_val
 ```
 
-(We use the name `total_val` to avoid shadowing the built-in **`sum()`** function.)
-
 ### Modifying List Elements
 
 A function can modify list elements in place:
@@ -571,104 +568,6 @@ month, day, year = readDate()
 
 ---
 
-## 6.5 Tables
-
-Lists can represent **two-dimensional** data (rows and columns), like a spreadsheet or matrix.
-
-![](media/image18.PNG "Table as rows and columns")
-
-### Creating Tables
-
-A table is a list of lists. Each inner list is one row:
-
-```python
-# 8 rows, 3 columns (e.g., medal counts)
-counts = [
-    [0, 3, 0],
-    [0, 0, 1],
-    [0, 0, 1],
-    [1, 0, 0],
-    [0, 0, 1],
-    [3, 1, 1],
-    [0, 1, 0],
-    [1, 0, 1]
-]
-```
-
-![](media/image19.PNG "Table structure")
-![](media/image20.PNG "Table as list of lists")
-
-For a large table, build it with a loop:
-
-```python
-ROWS = 5
-COLUMNS = 20
-table = []
-for i in range(ROWS):
-    row = [0] * COLUMNS
-    table.append(row)
-```
-
-### Accessing Elements
-
-Use two indices: **row**, then **column** — `table[i][j]`:
-
-```python
-medalCount = counts[3][1]
-
-# Print entire table (example with constants COUNTRIES, MEDALS)
-for i in range(COUNTRIES):
-    for j in range(MEDALS):
-        print(f"{counts[i][j]:8d}", end="")
-    print()
-```
-
-Modern style uses **f-strings** (e.g., `f"{counts[i][j]:8d}"`); the older style `"%8d" % counts[i][j]` still works.
-
-![](media/image21.png "Accessing table elements")
-
-### Locating Neighboring Elements
-
-In 2D data (e.g., grids or games), you often need neighbors of cell `(i, j)`. Check bounds to avoid negative indices or indices past the end of the table.
-
-![](media/image22.png "Neighboring elements and edges")
-
-### Adding Rows and Columns
-
-**Sum of a row** (all columns for row `i`):
-
-```python
-total = 0
-for j in range(MEDALS):
-    total = total + counts[i][j]
-```
-
-**Sum of a column** (all rows for column `j`):
-
-```python
-total = 0
-for i in range(COUNTRIES):
-    total = total + counts[i][j]
-```
-
-![](media/image23.png "Summing a row")
-![](media/image24.png "Summing a column")
-
-### Using Tables with Functions
-
-When passing a table to a function, use **`len(values)`** for the number of rows and **`len(values[0])`** for the number of columns (assuming rectangular data). Example: sum of all elements:
-
-```python
-def table_sum(values):
-    total = 0
-    for i in range(len(values)):
-        for j in range(len(values[0])):
-            total = total + values[i][j]
-    return total
-```
-
----
-
 ## Summary
 
 ### Lists
@@ -693,8 +592,3 @@ def table_sum(values):
 ### Tuples
 
 - Create with parentheses or comma-separated values. Tuples are immutable.
-
-### Two-Dimensional Lists
-
-- Use **`table[i][j]`** for row `i`, column `j`.
-- Use two indices and bounds checking when working with neighbors or edges.

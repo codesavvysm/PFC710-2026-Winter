@@ -57,7 +57,6 @@ Course materials for PFC710 - Winter 2026
   - List Operations
   - Common List Algorithms
   - Using Lists with Functions
-  - Tables
 
 ---
 
