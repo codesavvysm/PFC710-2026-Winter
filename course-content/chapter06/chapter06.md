@@ -545,8 +545,16 @@ triple = 5, 10, 15   # Parentheses optional
 
 **Why use tuples?**
 
-- **Immutability:** Fixed data that should not be modified.
+- **Immutability:** Fixed data that should not be modified; safe to pass to functions or share without accidental changes.
 - **Performance:** Slightly faster and less memory than lists when the collection does not need to change.
+- **Hashable:** Unlike lists, tuples can be used as **dictionary keys** or stored in **sets**, because their contents do not change.
+
+### Some Use cases
+
+- **Coordinates or points:** `point = (x, y)` or `point = (x, y, z)` — a position in 2D or 3D space should not change by accident.
+- **Multiple return values:** Functions that naturally produce several values (e.g., quotient and remainder, or min and max) return a tuple; callers unpack with `a, b = f()`.
+- **Dictionary keys:** When you need a composite key, e.g. `prices[(city, product)]` — lists cannot be keys because they are mutable.
+- **Constants / configuration:** Fixed sequences like `RGB_WHITE = (255, 255, 255)` or options that should not be altered after creation.
 
 ### Returning Multiple Values
 
