@@ -207,14 +207,29 @@ friends = ["Harry", "Emily", "Bob", "Cari", "Emily"]
 n = friends.index("Emily")   # n is 1
 ```
 
+**Note:** If the item is not in the list, **`index()`** raises a **`ValueError`**. Check with **`in`** first when the value might be missing:
+
+```python
+name = "Dave"
+if name in friends:
+    pos = friends.index(name)
+    print(name, "is at position", pos)
+else:
+    print(name, "is not in the list")
+```
+
 ### Removing an Element (by index)
 
-The **`pop(i)`** method removes the element at position `i`. Elements after it shift down, and the list length decreases by 1.
+The **`pop(i)`** method removes the element at position `i` and **returns** that element. Elements after it shift down, and the list length decreases by 1.
 
 ```python
 friends = ["Harry", "Cindy", "Emily", "Bob", "Cari", "Bill"]
-friends.pop(1)
+removed = friends.pop(1)   # Removes "Cindy", returns it
+print(removed)             # Cindy
+print(friends)             # ["Harry", "Emily", "Bob", "Cari", "Bill"]
 ```
+
+If you call **`pop()`** with **no arguments**, it removes and returns the **last** element in the list (same as `pop(-1)`).
 
 ![](media/image11.jpeg "Removing with pop()")
 
@@ -224,7 +239,7 @@ Use **`remove(value)`** to remove the **first occurrence** of a value:
 
 ```python
 my_list = [1, 2, 3, 4, 5]
-my_list.remove(3)   # Removes first 3
+my_list.remove(3)   # Removes first occurrence of 3
 print(my_list)      # Output: [1, 2, 4, 5]
 ```
 
@@ -515,6 +530,33 @@ When you call `multiply(scores, 10)`, `values` and `scores` refer to the same li
 
 ![](media/image17.jpeg "List reference passed to function")
 
+### Parameter Passing in Python
+
+The behavior you saw above—changes to a list inside a function appearing in the caller—comes from how Python passes arguments:
+
+- **Immutable types** (e.g., `int`, `float`, `str`, `tuple`): The function receives a copy of the reference. **Reassigning** the parameter (e.g. `x = 5`) does not change the caller’s variable. The caller still has the original value.
+- **Mutable types** (e.g., `list`, `dict`, `set`): The function receives a reference to the **same** object. **Mutating** the object (e.g. changing `values[i]`) does not create a copy—the caller sees the change.
+
+Contrast:
+
+```python
+def try_change_int(n):
+    n = 10   # Reassigns local n; caller's variable unchanged
+
+def try_change_list(lst):
+    lst[0] = 99   # Mutates the list; caller's list changes
+
+x = 5
+try_change_int(x)
+print(x)   # 5
+
+nums = [1, 2, 3]
+try_change_list(nums)
+print(nums)   # [99, 2, 3]
+```
+
+---
+
 ### Returning Lists from Functions
 
 Build a new list in the function and return it. Example: list of squares from 0² to (n−1)²:
@@ -526,11 +568,6 @@ def squares(n):
         result.append(i * i)
     return result
 ```
-
-### Parameter Passing in Python
-
-- **Immutable types** (e.g., `int`, `float`, `str`, `tuple`): The function receives a copy of the reference. Changing the parameter does not change the caller’s variable.
-- **Mutable types** (e.g., `list`, `dict`, `set`): The function receives a reference to the **same** object. Changes to the object are visible to the caller.
 
 ---
 
@@ -573,6 +610,31 @@ date = readDate()
 # Or:
 month, day, year = readDate()
 ```
+
+### Tuples vs. Lists: What Works and What Doesn’t
+
+Because tuples are **immutable**, the same operations you use on lists do not all behave the same way.
+
+**Operations that work with tuples (as with lists):**
+
+- **Indexing:** `t[i]`, `t[-1]` — access by position.
+- **`len(t)`** — number of elements.
+- **`in`** — test whether a value is in the tuple.
+- **Slicing:** `t[start:stop:step]` — returns a **new** tuple (tuple has no “in-place” slice).
+- **Concatenation:** `t1 + t2` — returns a new tuple.
+- **Iteration:** `for x in t:` or `for i in range(len(t)):`.
+- **`index(value)`** — position of first occurrence (raises `ValueError` if not found).
+- **`count(value)`** — number of times a value appears.
+- **`sum(t)`**, **`max(t)`**, **`min(t)`** — when elements are numeric or comparable.
+
+**Operations that do *not* work with tuples (or work differently):**
+
+- **Assignment to an element:** `t[i] = x` — not allowed; tuples cannot be modified.
+- **`append()`**, **`insert()`**, **`extend()`** — tuples have no methods that add elements.
+- **`pop()`**, **`remove()`**, **`clear()`** — no methods that remove or change elements.
+- **`sort()`** — tuples have no in-place sort. Use **`sorted(t)`** to get a **list** of the elements in order; the tuple itself is unchanged.
+
+In short: anything that **reads** or **builds a new** tuple is fine; anything that **changes** the tuple in place is not.
 
 ---
 
