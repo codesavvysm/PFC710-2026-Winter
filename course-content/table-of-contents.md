@@ -67,6 +67,12 @@ Course materials for PFC710 - Winter 2026
   - Processing Text Files (Worked Example)
   - Handling Input Errors
 
+## AWS Topics
+- [AWS Lambda (Python)](aws-topics/lambda.md)
+  - What is Lambda, handler, runtime
+  - Environment variables, packaging, IAM
+  - S3, logging, exception handling, local testing
+
 ---
 
 ## Course Structure
