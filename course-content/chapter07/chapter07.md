@@ -199,7 +199,7 @@ outfile.write(f"{'-'*15}\n")
 outfile.write(f"Total:   {total:8.2f}\n")
 
 avg = total / count
-outfile.write(f"Average: {average:6.2f}\n")
+outfile.write(f"Average: {avg:6.2f}\n")
 
 # Close the files.
 infile.close()
