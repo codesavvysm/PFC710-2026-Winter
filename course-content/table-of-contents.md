@@ -58,6 +58,15 @@ Course materials for PFC710 - Winter 2026
   - Common List Algorithms
   - Using Lists with Functions
 
+## Chapter 7
+- [Chapter Seven: Files and Exceptions](chapter07/chapter07.md)
+  - Reading and Writing Text Files
+  - Text Input and Output
+  - Command-Line Arguments
+  - Exception Handling
+  - Processing Text Files (Worked Example)
+  - Handling Input Errors
+
 ---
 
 ## Course Structure
