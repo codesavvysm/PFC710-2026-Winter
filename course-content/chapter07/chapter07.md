@@ -409,7 +409,7 @@ population = int(line[i:])
 
 ### Running Programs
 
-Programs can be run from an IDE (e.g. Wing) or from a terminal. When run from the terminal, you can pass **command-line arguments** after the program name. These are given to the program as strings.
+Programs can be run from an IDE (e.g. Pycharm) or from a terminal. When run from the terminal, you can pass **command-line arguments** after the program name. These are given to the program as strings.
 
 ### Using Command-Line Arguments
 
