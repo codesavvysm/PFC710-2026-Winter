@@ -100,17 +100,68 @@ bucket_name = os.environ.get("BUCKET_NAME")
 
 ---
 
+## Scheduling Lambda with EventBridge
+
+You can run a Lambda function on a schedule (e.g. every hour, daily) using **Amazon EventBridge** (formerly CloudWatch Events). EventBridge invokes your function at the specified times; your code does not need to change—it is simply triggered with an event payload (often empty or a fixed structure) each time the schedule fires.
+
+### Why EventBridge?
+
+- **Decoupled:** The schedule is configured outside your code. You can enable, disable, or change the schedule without redeploying the function.
+- **Flexible:** Supports both simple intervals (`rate`) and cron-style schedules.
+- **Visible:** In the Lambda console, the trigger appears under **Configuration → Triggers**, so you can confirm the function runs on a schedule.
+
+### Adding a schedule trigger in the AWS Console
+
+1. Open your Lambda function in the **AWS Console**.
+2. Go to the **Configuration** tab.
+3. In the left sidebar, click **Triggers** (or **Add trigger** if you have none).
+4. Click **Add trigger**.
+5. **Source:** Choose **EventBridge (CloudWatch Events)**.
+6. **Rule:** Either create a new rule or select an existing one.
+   - **Create a new rule:** Give it a name (e.g. `hourly-invocation`).
+   - **Rule type:** Select **Schedule expression**.
+   - **Schedule expression:** Use one of the formats below.
+7. Leave **Enable trigger** checked.
+8. Click **Add**.
+
+Your Lambda will now be invoked automatically according to the schedule. You can see the trigger listed under **Configuration → Triggers**.
+
+### Schedule expression formats
+
+**Rate expression** – run at a fixed interval:
+
+| Expression        | Meaning                    |
+|-------------------|----------------------------|
+| `rate(1 minute)`  | Every 1 minute             |
+| `rate(5 minutes)` | Every 5 minutes            |
+| `rate(1 hour)`    | Every 1 hour               |
+| `rate(1 day)`     | Every 24 hours             |
+
+- Use singular: `minute`, `hour`, `day` (not `minutes`, `hours`, `days`).
+- Minimum interval is 1 minute.
+
+**Cron expression** – run at specific times (UTC):
+
+| Expression              | Meaning                          |
+|-------------------------|----------------------------------|
+| `cron(0 * * * ? *)`     | Every hour at minute 0           |
+| `cron(0 12 * * ? *)`    | Every day at 12:00 UTC           |
+| `cron(0 9 ? * MON-FRI *)` | Weekdays at 09:00 UTC         |
+
+Format: `cron(minutes hours day-of-month month day-of-week year)`. Use `?` for “any” where both day-of-month and day-of-week are not needed.
+
+### Verifying the trigger
+
+- **Configuration → Triggers:** You should see **EventBridge (CloudWatch Events)** with your rule name and schedule expression.
+- **Monitoring → Logs:** After the schedule fires, new invocations will appear in CloudWatch Logs; you can confirm the function ran at the expected time.
+
+Your handler can ignore the `event` and `context` arguments if the schedule does not pass custom payload; the function will still run on every scheduled invocation.
+
+---
+
 ## Packaging Your Lambda (Python + Dependencies)
 
-Lambda runs your code in a fixed environment. The runtime includes **boto3** (AWS SDK), so you do not need to package it. It does **not** include third-party libraries like **requests**; if your code uses them, you must include them in your deployment package.
-
-### Option A: Inline code only (no extra libraries)
-
-If you use only the Python standard library (e.g. `urllib.request` for HTTP), you can paste your code in the console or upload a zip that contains only your `.py` file(s). No packaging step needed for dependencies.
-
-### Option B: Including third-party libraries (e.g. `requests`)
-
-You must provide the library (and its dependencies) in a **zip** that Lambda can use.
+Lambda runs your code in a fixed environment. The runtime includes **boto3** (AWS SDK), so you do not need to package it. It does **not** include third-party libraries like **requests**; if your code uses them, you must provide the library (and its dependencies) in a **zip** that Lambda can use.
 
 **On macOS/Linux:**
 
@@ -142,9 +193,39 @@ You must provide the library (and its dependencies) in a **zip** that Lambda can
 
 5. Upload `lambda_deploy.zip` in the Lambda console: **Code** tab → **Upload from** → **.zip file**.
 
-**Important:** Your handler file (e.g. `lambda_function.py`) must be at the **root** of the zip (same level as the library folders). The handler remains `lambda_function.lambda_handler`.
+**On Windows (PowerShell or Command Prompt):**
 
-**On Windows:** Create a directory, run `pip install requests -t .` in that directory, copy your `.py` file in, then zip the contents (all files and folders inside the directory) and upload that zip.
+1. Create a folder for the deployment package and go into it:
+
+   ```powershell
+   mkdir lambda_package
+   cd lambda_package
+   ```
+
+2. Install the library into this folder:
+
+   ```powershell
+   pip install requests -t .
+   ```
+
+3. Copy your handler file into the same folder (adjust the path to your file):
+
+   ```powershell
+   copy C:\path\to\your\lambda_function.py .
+   ```
+
+4. Zip the **contents** of the folder (not the folder itself). In PowerShell, from inside `lambda_package`:
+
+   ```powershell
+   Compress-Archive -Path * -DestinationPath ..\lambda_deploy.zip
+   cd ..
+   ```
+
+   Or in File Explorer: open `lambda_package`, select **all** files and folders inside it (Ctrl+A), right‑click → **Send to** → **Compressed (zipped) folder**, then name it `lambda_deploy.zip`. The zip must contain your `.py` file and the library folders at the **root** of the archive, not inside a `lambda_package` subfolder.
+
+5. Upload `lambda_deploy.zip` in the Lambda console: **Code** tab → **Upload from** → **.zip file**.
+
+**Important:** Your handler file (e.g. `lambda_function.py`) must be at the **root** of the zip (same level as the library folders). The handler remains `lambda_function.lambda_handler`.
 
 ### Zip structure (conceptual)
 
@@ -261,6 +342,7 @@ You can run the same handler on your machine to test success and failure paths:
 ## Deployment Checklist
 
 - [ ] Lambda function created with the correct runtime (e.g. Python 3.9+) and handler (e.g. `lambda_function.lambda_handler`).
+- [ ] If the function must run on a schedule: EventBridge trigger added (Configuration → Triggers) with the desired rate or cron expression (e.g. `rate(1 hour)`).
 - [ ] Environment variables set in the Configuration tab and read in code with `os.environ.get(...)`; missing or invalid values are validated and handled.
 - [ ] Deployment package: if you use third-party libraries (e.g. `requests`), they are included in the zip; boto3 is provided by the runtime.
 - [ ] Execution role has permissions for CloudWatch Logs and any other services your code uses (e.g. S3).
