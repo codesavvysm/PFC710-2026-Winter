@@ -67,6 +67,13 @@ Course materials for PFC710 - Winter 2026
   - Processing Text Files (Worked Example)
   - Handling Input Errors
 
+## Chapter 8
+- [Chapter Eight: Sets and Dictionaries](chapter08/chapter08.md)
+  - Sets (creating, membership, adding/removing, set operations)
+  - Dictionaries (key–value pairs, table lookups)
+  - Complex Structures (combining containers)
+  - Modules
+
 ## AWS Topics
 - [AWS Lambda (Python)](aws-topics/lambda.md)
   - What is Lambda, handler, runtime
